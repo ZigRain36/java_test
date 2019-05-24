@@ -31,7 +31,7 @@ public class MyProgram {
 
 
 		}
-
+// выполнено задание 2
 
 
 
