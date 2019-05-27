@@ -1,4 +1,4 @@
-
+package ru.sevstal.sandbox;
 
 public class MyProgram {
 
@@ -18,10 +18,10 @@ public class MyProgram {
 
 		Point point1 = new Point();
 		Point point2 = new Point();
-		point1.x = 2;
-		point1.y = 4;
-		point2.x = 5;
-		point2.y = 7;
+		point1.x = 8.0;
+		point1.y = 4.0;
+		point2.x = 16.0;
+		point2.y = 4.0;
 		System.out.println("Расстояние между двумя точками  = " + Point.distance(point1, point2) );
 	}
 

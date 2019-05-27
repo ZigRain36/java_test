@@ -12,4 +12,6 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation 'org.testng:testng:7.0.0-beta4'
+//    testCompile group: 'testng', name: 'testng', version: '7.0.0'
 }

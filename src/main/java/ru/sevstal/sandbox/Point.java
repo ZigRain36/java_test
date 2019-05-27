@@ -1,4 +1,4 @@
-
+package ru.sevstal.sandbox;
 
 public class Point {
 
