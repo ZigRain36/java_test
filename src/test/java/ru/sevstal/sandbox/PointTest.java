@@ -1,20 +1,15 @@
-//package ru.sevstal.sandbox;
-//
-//import org.junit.Assert;
-//import org.junit.Test;
-//
-//import static ru.sevstal.sandbox.Point.distance;
-//
-//public class PointTest {
-//    @Test
-//    public void testPoint() {
-//        Point point1 = new Point();
-//        Point point2 = new Point();
-//        point1.x = 8.0;
-//        point1.y = 4.0;
-//        point2.x = 16.0;
-//        point2.y = 4.0;
-//        Assert.assertEquals(distance(point1, point2), 8.0,0);
-//    }
-//
-//}
+package ru.sevstal.sandbox;
+
+
+import org.testng.Assert;
+import org.testng.annotations.*;
+
+public class PointTest {
+    @Test
+    public void testPoint() {
+        Point p1 = new Point(8, 4);
+        Point p2 = new Point(16, 4);
+        Assert.assertEquals(p1.distance(p2), 8.0);
+   }
+
+}
