@@ -3,7 +3,7 @@ package ru.sevstal.sandbox;
 public class MyProgram {
 
 
-	public static void main(String [ ] args) {
+	public static  void main(String[] args) {
 
 		hello("Pizza arrived!");
 		hello("Maiki");
@@ -16,14 +16,12 @@ public class MyProgram {
 		Rectangle r = new Rectangle(5, 9);
 		System.out.println("Площадь прямоугольника со сторонами " + r.a +  " + " + r.b + " = " + r.area());
 
-		Point point1 = new Point();
-		Point point2 = new Point();
-		point1.x = 8.0;
-		point1.y = 4.0;
-		point2.x = 16.0;
-		point2.y = 4.0;
-		System.out.println("Расстояние между двумя точками  = " + Point.distance(point1, point2) );
+		Point p1 = new Point(8, 4);
+		Point p2 = new Point(16, 4);
+
+		System.out.println("Расстояние между двумя точками  = " + p1.distance(p2));
 	}
+
 
 
 	public static void hello(String thing) {
