@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="0.0" y="386.0">ru.sevstal.addressbook.GroupCreationTests</node>
+    <node x="197.0" y="386.0">ru.sevstal.addressbook.GroupDeletionTests</node>
+    <node x="81.5" y="0.0">ru.sevstal.addressbook.TestBase</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="ru.sevstal.addressbook.GroupCreationTests" target="ru.sevstal.addressbook.TestBase">
+      <point x="-44.25" y="-24.5" />
+      <point x="44.25" y="361.0" />
+      <point x="107.875" y="361.0" />
+      <point x="-79.125" y="168.0" />
+    </edge>
+    <edge source="ru.sevstal.addressbook.GroupDeletionTests" target="ru.sevstal.addressbook.TestBase">
+      <point x="-44.25" y="-24.5" />
+      <point x="241.25" y="361.0" />
+      <point x="213.375" y="361.0" />
+      <point x="26.375" y="168.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="0.0" y="0.0" />
+  <SelectedNodes>
+    <node>ru.sevstal.addressbook.GroupDeletionTests</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
