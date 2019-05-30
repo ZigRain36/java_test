@@ -1,4 +1,4 @@
-package ru.sevstal.addressbook;
+package ru.sevstal.addressbook.model;
 
 public class GroupData {
     private final String name;
