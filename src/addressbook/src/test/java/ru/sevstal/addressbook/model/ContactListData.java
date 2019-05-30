@@ -1,4 +1,4 @@
-package ru.sevstal.addressbook;
+package ru.sevstal.addressbook.model;
 
 public class ContactListData {
     private final String firstname;
@@ -24,43 +24,33 @@ public class ContactListData {
         this.bmouth = bmouth;
         this.byear = byear;
     }
-
     public String getFirstname() {
         return firstname;
     }
-
     public String getLastname() {
         return lastname;
     }
-
     public String getNickname() {
         return nickname;
     }
-
     public String getCompany() {
         return company;
     }
-
     public String getAddress() {
         return address;
     }
-
     public String getMobile() {
         return mobile;
     }
-
     public String getEmail() {
         return email;
     }
-
     public String getBday() {
         return bday;
     }
-
     public String getBmouth() {
         return bmouth;
     }
-
     public String getByear() {
         return byear;
     }

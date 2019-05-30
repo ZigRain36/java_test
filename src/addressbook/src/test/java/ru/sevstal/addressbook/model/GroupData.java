@@ -10,15 +10,12 @@ public class GroupData {
         this.header = header;
         this.footer = footer;
     }
-
     public String getName() {
         return name;
     }
-
     public String getHeader() {
         return header;
     }
-
     public String getFooter() {
         return footer;
     }

@@ -3,10 +3,7 @@ package ru.sevstal.addressbook.tests;
 import org.testng.annotations.*;
 import ru.sevstal.addressbook.model.GroupData;
 
-
 public class GroupCreationTests extends TestBase {
-
-
     @Test
     public void testGroupCreation() throws Exception {
         app.getNavigationHepler().gotoGroupPage();
@@ -16,7 +13,5 @@ public class GroupCreationTests extends TestBase {
         app.getGroupHelper().returnToGroupPage();
 //        wd.findElement(By.linkText("Logout")).click();
     }
-
-
 }
 

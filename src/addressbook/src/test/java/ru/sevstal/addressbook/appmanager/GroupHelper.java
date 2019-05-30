@@ -9,15 +9,14 @@ public class GroupHelper extends HelperBase {
     public GroupHelper(WebDriver wd) {
         super(wd);
     }
-
     public void returnToGroupPage() {
+
         click(By.linkText("group page"));
     }
-
     public void submitGroupCreation() {
+
         click(By.name("submit"));
     }
-
     public void fillGroupForm(GroupData groupData) {
         type(By.name("group_name"), groupData.getName());
         wd.findElement(By.name("group_header")).clear();
@@ -26,15 +25,12 @@ public class GroupHelper extends HelperBase {
         wd.findElement(By.name("group_footer")).sendKeys(groupData.getFooter());
 
     }
-
     public void initGroupCreation() {
         click(By.name("new"));
     }
-
     public void deleteSelectedGroups() {
         click(By.name("delete"));
     }
-
     public void selectGroups() {
         click(By.name("selected[]"));
     }

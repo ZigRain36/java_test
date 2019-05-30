@@ -14,6 +14,7 @@ public class ApplicationManager {
     public static FirefoxOptions options = new FirefoxOptions();
     private NavigationHepler navigationHepler;
     private GroupHelper groupHelper;
+    private ContactHelper contactHelper;
 
     public void init() {
         System.setProperty("webdriver.gecko.driver", "C:\\Books\\geckodriver.exe");
@@ -23,14 +24,13 @@ public class ApplicationManager {
         groupHelper = new GroupHelper(wd);
         navigationHepler = new NavigationHepler(wd);
         sessionHelper = new SessionHelper(wd);
+        contactHelper = new ContactHelper(wd);
         sessionHelper.login("admin", "secret");
     }
-
 
     public void stop() {
         wd.quit();
     }
-
     boolean isElementPresent(By by) {
         try {
             wd.findElement(by);
@@ -38,15 +38,16 @@ public class ApplicationManager {
         } catch (NoSuchElementException e) {
             return false;
         }
-
     }
-
-
     public GroupHelper getGroupHelper() {
         return groupHelper;
     }
-
     public NavigationHepler getNavigationHepler() {
         return navigationHepler;
     }
+    public ContactHelper getContactHelper() {
+        return contactHelper;
+    }
+
+
 }
