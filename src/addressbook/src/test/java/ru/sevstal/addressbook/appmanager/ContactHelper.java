@@ -10,23 +10,46 @@ public class ContactHelper extends HelperBase {
     public ContactHelper(WebDriver wd) {
         super(wd);
     }
+
     public void contactFormFill(ContactListData contactListData) {
+        wd.findElement(By.name("firstname")).clear();
         wd.findElement(By.name("firstname")).sendKeys(contactListData.getFirstname());
+        wd.findElement(By.name("lastname")).clear();
         wd.findElement(By.name("lastname")).sendKeys(contactListData.getLastname());
+        wd.findElement(By.name("nickname")).clear();
         wd.findElement(By.name("nickname")).sendKeys(contactListData.getNickname());
+        wd.findElement(By.name("company")).clear();
         wd.findElement(By.name("company")).sendKeys(contactListData.getCompany());
+        wd.findElement(By.name("address")).clear();
         wd.findElement(By.name("address")).sendKeys(contactListData.getAddress());
+        wd.findElement(By.name("mobile")).clear();
         wd.findElement(By.name("mobile")).sendKeys(contactListData.getMobile());
+        wd.findElement(By.name("email")).clear();
         wd.findElement(By.name("email")).sendKeys(contactListData.getEmail());
         new Select(wd.findElement(By.name("bday"))).selectByVisibleText(contactListData.getBday());
         wd.findElement(By.name("bmonth")).click();
         new Select(wd.findElement(By.name("bmonth"))).selectByVisibleText(contactListData.getBmouth());
         wd.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Birthday:'])[1]/following::option[45]")).click();
+        wd.findElement(By.name("byear")).clear();
         wd.findElement(By.name("byear")).sendKeys(contactListData.getByear());
         wd.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Notes:'])[1]/following::input[1]")).click();
         wd.findElement(By.xpath("//a[contains(text(),'home page')]")).click();
     }
+
     public void addNewContact() {
         click(By.linkText("add new"));
+    }
+
+    public void editFirstContact() {
+        click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='artem-zorin@bk.ru'])[1]/following::img[2]"));
+    }
+
+
+    public void selectFirstContact() {
+        click(By.name("selected[]"));
+    }
+
+    public void deleteContact() {
+        click(By.xpath("//input[@value='Delete']"));
     }
 }
