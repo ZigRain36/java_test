@@ -26,19 +26,17 @@ public class ApplicationManager {
     }
 
     public void init() {
-        if (browser == BrowserType.FIREFOX){
+        if (browser.equals(BrowserType.FIREFOX)){
             System.setProperty("webdriver.gecko.driver", "C:\\Books\\geckodriver.exe");
             wd = new FirefoxDriver();
-        } else if (browser == BrowserType.CHROME) {
+        } else if (browser.equals(BrowserType.CHROME)) {
             System.setProperty("webdriver.chrome.driver", "C:\\Books\\chromedriver.exe");
             wd = new ChromeDriver();
-        } else if (browser == BrowserType.IE) {
+        } else if (browser.equals(BrowserType.IE)) {
             System.setProperty("webdriver.ie.driver", "C:\\Books\\IEDriverServer.exe");
             DesiredCapabilities ieCapabilities = DesiredCapabilities.internetExplorer();
             ieCapabilities.setCapability(
-                    InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,
-                    true
-            );
+                    InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
             wd = new InternetExplorerDriver(ieCapabilities);
         }
         wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
