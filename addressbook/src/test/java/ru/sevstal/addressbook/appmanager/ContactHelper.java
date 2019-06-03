@@ -1,8 +1,10 @@
 package ru.sevstal.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import ru.sevstal.addressbook.appmanager.HelperBase;
 import ru.sevstal.addressbook.model.ContactListData;
 
@@ -11,7 +13,7 @@ public class ContactHelper extends HelperBase {
         super(wd);
     }
 
-    public void contactFormFill(ContactListData contactListData) {
+    public void contactFormFill(ContactListData contactListData, boolean creation) {
         wd.findElement(By.name("firstname")).clear();
         wd.findElement(By.name("firstname")).sendKeys(contactListData.getFirstname());
         wd.findElement(By.name("lastname")).clear();
@@ -29,19 +31,24 @@ public class ContactHelper extends HelperBase {
         new Select(wd.findElement(By.name("bday"))).selectByVisibleText(contactListData.getBday());
         wd.findElement(By.name("bmonth")).click();
         new Select(wd.findElement(By.name("bmonth"))).selectByVisibleText(contactListData.getBmouth());
-        wd.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Birthday:'])[1]/following::option[45]")).click();
+        wd.findElement(By.xpath("//option[@value='November']")).click();
         wd.findElement(By.name("byear")).clear();
         wd.findElement(By.name("byear")).sendKeys(contactListData.getByear());
-        wd.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Notes:'])[1]/following::input[1]")).click();
-        wd.findElement(By.xpath("//a[contains(text(),'home page')]")).click();
-    }
+        if (creation) {
+            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactListData.getGroup());
+        } else {
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
+        }
+        wd.findElement(By.xpath("//input[contains(@type, 'submit')]")).click();
+        }
 
     public void addNewContact() {
         click(By.linkText("add new"));
     }
 
     public void editFirstContact() {
-        click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='artem-zorin@bk.ru'])[1]/following::img[2]"));
+        click(By.xpath("(//input[contains(@type, 'checkbox')])[1]"));
+        click(By.xpath("(//img[contains(@alt, 'Edit')])[1]"));
     }
 
 
