@@ -14,32 +14,24 @@ public class ContactHelper extends HelperBase {
     }
 
     public void contactFormFill(ContactListData contactListData, boolean creation) {
-        wd.findElement(By.name("firstname")).clear();
-        wd.findElement(By.name("firstname")).sendKeys(contactListData.getFirstname());
-        wd.findElement(By.name("lastname")).clear();
-        wd.findElement(By.name("lastname")).sendKeys(contactListData.getLastname());
-        wd.findElement(By.name("nickname")).clear();
-        wd.findElement(By.name("nickname")).sendKeys(contactListData.getNickname());
-        wd.findElement(By.name("company")).clear();
-        wd.findElement(By.name("company")).sendKeys(contactListData.getCompany());
-        wd.findElement(By.name("address")).clear();
-        wd.findElement(By.name("address")).sendKeys(contactListData.getAddress());
-        wd.findElement(By.name("mobile")).clear();
-        wd.findElement(By.name("mobile")).sendKeys(contactListData.getMobile());
-        wd.findElement(By.name("email")).clear();
-        wd.findElement(By.name("email")).sendKeys(contactListData.getEmail());
+        type(By.name("firstname"), contactListData.getFirstname());
+        type(By.name("lastname"), contactListData.getLastname());
+        type(By.name("nickname"), contactListData.getNickname());
+        type(By.name("company"), contactListData.getCompany());
+        type(By.name("address"), contactListData.getAddress());
+        type(By.name("mobile"), contactListData.getMobile());
+        type(By.name("email"), contactListData.getEmail());
         new Select(wd.findElement(By.name("bday"))).selectByVisibleText(contactListData.getBday());
-        wd.findElement(By.name("bmonth")).click();
+        click(By.name("bmonth"));
         new Select(wd.findElement(By.name("bmonth"))).selectByVisibleText(contactListData.getBmouth());
-        wd.findElement(By.xpath("//option[@value='November']")).click();
-        wd.findElement(By.name("byear")).clear();
-        wd.findElement(By.name("byear")).sendKeys(contactListData.getByear());
+        click(By.xpath("//option[@value='November']"));
+        type(By.name("byear"), contactListData.getByear());
         if (creation) {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactListData.getGroup());
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
-        wd.findElement(By.xpath("//input[contains(@type, 'submit')]")).click();
+        click(By.xpath("//input[contains(@type, 'submit')]"));
         }
 
     public void addNewContact() {
@@ -58,5 +50,22 @@ public class ContactHelper extends HelperBase {
 
     public void deleteContact() {
         click(By.xpath("//input[@value='Delete']"));
+    }
+
+    public void createContact(ContactListData contact, boolean b) {
+        addNewContact();
+        contactFormFill(contact, b);
+        gotoHomePage();
+    }
+
+    public void gotoHomePage() {
+        if (isElementPresent(By.id("maintable"))) {
+            return;
+        }
+        click(By.linkText("Home"));
+    }
+
+    public boolean isThereAContact() {
+        return isElementPresent(By.name("selected[]"));
     }
 }
