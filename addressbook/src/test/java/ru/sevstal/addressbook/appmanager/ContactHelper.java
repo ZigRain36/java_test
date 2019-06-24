@@ -1,12 +1,12 @@
 package ru.sevstal.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
-import ru.sevstal.addressbook.appmanager.HelperBase;
+import org.openqa.selenium.WebElement;
 import ru.sevstal.addressbook.model.ContactListData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends HelperBase {
     public ContactHelper(WebDriver wd) {
@@ -17,35 +17,28 @@ public class ContactHelper extends HelperBase {
         type(By.name("firstname"), contactListData.getFirstname());
         type(By.name("lastname"), contactListData.getLastname());
         type(By.name("nickname"), contactListData.getNickname());
-        type(By.name("company"), contactListData.getCompany());
-        type(By.name("address"), contactListData.getAddress());
-        type(By.name("mobile"), contactListData.getMobile());
-        type(By.name("email"), contactListData.getEmail());
-        new Select(wd.findElement(By.name("bday"))).selectByVisibleText(contactListData.getBday());
-        click(By.name("bmonth"));
-        new Select(wd.findElement(By.name("bmonth"))).selectByVisibleText(contactListData.getBmouth());
-        click(By.xpath("//option[@value='November']"));
-        type(By.name("byear"), contactListData.getByear());
-        if (creation) {
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactListData.getGroup());
-        } else {
-            Assert.assertFalse(isElementPresent(By.name("new_group")));
-        }
+
+//        if (creation) {
+//            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactListData.getGroup());
+//        } else {
+//            Assert.assertFalse(isElementPresent(By.name("new_group")));
+//        }
         click(By.xpath("//input[contains(@type, 'submit')]"));
-        }
+//
+    }
 
     public void addNewContact() {
         click(By.linkText("add new"));
     }
 
-    public void editFirstContact() {
-        click(By.xpath("(//input[contains(@type, 'checkbox')])[1]"));
+    public void editFirstContact(int index) {
+        wd.findElements(By.xpath("(//input[contains(@type, 'checkbox')])[1]")).get(index).click();
         click(By.xpath("(//img[contains(@alt, 'Edit')])[1]"));
     }
 
 
-    public void selectFirstContact() {
-        click(By.name("selected[]"));
+    public void selectFirstContact(int index) {
+        wd.findElements(By.name("selected[]")).get(index).click();
     }
 
     public void deleteContact() {
@@ -67,5 +60,19 @@ public class ContactHelper extends HelperBase {
 
     public boolean isThereAContact() {
         return isElementPresent(By.name("selected[]"));
+    }
+
+    public List<ContactListData> getContactList() {
+        List<ContactListData> contacts = new ArrayList<ContactListData>();
+        List<WebElement> elements = wd.findElements(By.cssSelector("tr.entry"));
+        for (WebElement element : elements) {
+            String name = element.getText();
+            String lastname = element.getText();
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+            ContactListData contact = new ContactListData(id, name, lastname, null);
+            contacts.add(contact);
+
+        }
+        return contacts;
     }
 }

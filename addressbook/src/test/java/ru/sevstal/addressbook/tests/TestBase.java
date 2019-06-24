@@ -7,9 +7,9 @@ import ru.sevstal.addressbook.appmanager.ApplicationManager;
 
 public class TestBase {
 
-    protected final ApplicationManager app = new ApplicationManager(BrowserType.IE);
+    protected final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
     @BeforeMethod
-    public void setUp() throws Exception {
+    void setUp() throws Exception {
         app.init();
         ApplicationManager.options.addArguments("--no-sandbox");
         ApplicationManager.options.addArguments("test-type");

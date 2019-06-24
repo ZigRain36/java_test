@@ -1,18 +1,27 @@
 package ru.sevstal.addressbook.tests;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.sevstal.addressbook.model.ContactListData;
+
+import java.util.List;
 
 public class DeleteContactTest extends TestBase {
 
     @Test
     public void testContactDelete() {
         if (! app.getContactHelper().isThereAContact()) {
-            app.getContactHelper().createContact(new ContactListData("Artem", "Zorin", "ZigRain36", "Sevstal", "Voronezh", "9204181287", "artem-zorin@bk.ru", "5", "November", "1993", "test1"), true);
+            app.getContactHelper().createContact(new ContactListData("Artem", "Zorin", "ZigRain36", true), true);
         }
-        app.getContactHelper().selectFirstContact();
+        List<ContactListData> before = app.getContactHelper().getContactList();
+        app.getContactHelper().selectFirstContact(before.size() - 1);
         app.getContactHelper().deleteContact();
         app.wd.switchTo().alert().accept();
+        List<ContactListData> after = app.getContactHelper().getContactList();
+        Assert.assertEquals(after.size(), before.size() - 1);
+
+        before.remove(before.size() - 1);
+        Assert.assertEquals(before, after);
         app.getContactHelper().logout();
 
 
