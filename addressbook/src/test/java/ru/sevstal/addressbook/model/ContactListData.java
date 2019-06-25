@@ -32,6 +32,15 @@ public class ContactListData {
         return id;
     }
 
+    @Override
+    public String toString() {
+        return "ContactListData{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                '}';
+    }
+
     public ContactListData(int id, String firstname, String lastname, String nickname) {
         this.id = id;
         this.firstname = firstname;
@@ -60,13 +69,5 @@ public class ContactListData {
         return nickname;
     }
 
-
-    @Override
-    public String toString() {
-        return "ContactListData{" +
-                "id=" + id +
-                ", firstname='" + firstname + '\'' +
-                '}';
-    }
 
 }
