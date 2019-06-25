@@ -37,9 +37,8 @@ public class ContactHelper extends HelperBase {
     }
 
 
-    public void selectFirstContact(int index) {
-        wd.findElements(By.name("selected[]")).get(index).click();
-        click(By.xpath("(//img[contains(@alt, 'Edit')])[1]"));
+    public void selectContact(int index) {
+        wd.findElements(By.xpath("//img[contains(@title, 'Edit')]")).get(index).click();
     }
 
     public void deleteContact() {

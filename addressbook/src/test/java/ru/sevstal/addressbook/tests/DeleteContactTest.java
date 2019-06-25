@@ -14,7 +14,7 @@ public class DeleteContactTest extends TestBase {
             app.getContactHelper().createContact(new ContactListData("Artem", "Zorin", "ZigRain36", true), true);
         }
         List<ContactListData> before = app.getContactHelper().getContactList();
-        app.getContactHelper().selectFirstContact(before.size() - 1);
+        app.getContactHelper().selectContact(before.size() - 1);
         app.getContactHelper().deleteContact();
         app.wd.switchTo().alert().accept();
         List<ContactListData> after = app.getContactHelper().getContactList();
