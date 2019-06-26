@@ -31,13 +31,13 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("add new"));
     }
 
-    public void editFirstContact(int index) {
-        wd.findElements(By.xpath("(//input[contains(@type, 'checkbox')])[1]")).get(index).click();
-        click(By.xpath("(//img[contains(@alt, 'Edit')])[1]"));
+    public void editContact(int index) {
+        wd.findElements(By.xpath("//img[contains(@title, 'Edit')]")).get(index).click();
     }
 
 
     public void selectContact(int index) {
+        wd.findElements(By.xpath("//input[contains(@type, 'checkbox')]")).get(index).click();
         wd.findElements(By.xpath("//img[contains(@title, 'Edit')]")).get(index).click();
     }
 
