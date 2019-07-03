@@ -1,8 +1,9 @@
 package ru.sevstal.addressbook.tests;
 
-import org.testng.annotations.*;
+import org.testng.annotations.Test;
 import ru.sevstal.addressbook.model.GroupData;
 import ru.sevstal.addressbook.model.Groups;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -21,4 +22,5 @@ public class GroupCreationTests extends TestBase {
         assertThat(after.size(), equalTo(before.size() + 1));
     }
 }
+
 

@@ -1,8 +1,9 @@
 package ru.sevstal.addressbook.tests;
 
-import org.testng.annotations.*;
+import org.testng.annotations.Test;
 import ru.sevstal.addressbook.model.ContactListData;
 import ru.sevstal.addressbook.model.Contacts;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -22,4 +23,5 @@ public class AddContactTest extends TestBase {
                 before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
         assertThat(after.size(), equalTo(before.size() + 1));
     }
+
 }

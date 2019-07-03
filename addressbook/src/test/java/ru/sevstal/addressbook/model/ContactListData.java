@@ -22,6 +22,7 @@ public class ContactListData {
                 Objects.equals(lastname, that.lastname);
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(id, firstname, lastname);

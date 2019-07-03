@@ -6,9 +6,7 @@ import org.openqa.selenium.WebElement;
 import ru.sevstal.addressbook.model.GroupData;
 import ru.sevstal.addressbook.model.Groups;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class GroupHelper extends HelperBase {
 
@@ -73,7 +71,6 @@ public class GroupHelper extends HelperBase {
         deleteSelectedGroups();
         returnToGroupPage();
     }
-
     public boolean isthereAGroup() {
         return isElementPresent(By.name("selected[]"));
     }

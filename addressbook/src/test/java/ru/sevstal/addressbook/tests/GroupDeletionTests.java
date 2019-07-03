@@ -1,14 +1,9 @@
 package ru.sevstal.addressbook.tests;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
-import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import ru.sevstal.addressbook.model.GroupData;
 import ru.sevstal.addressbook.model.Groups;
-
-import java.util.List;
-import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -24,7 +19,6 @@ public class GroupDeletionTests extends TestBase {
         }
     }
     @Test
-
     public void testGroupDeletion() throws Exception {
         Groups before = app.group().all();
         GroupData deletedGroup = before.iterator().next();

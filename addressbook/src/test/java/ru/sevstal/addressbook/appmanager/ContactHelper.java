@@ -43,7 +43,6 @@ public class ContactHelper extends HelperBase {
     }
 
 
-
     public void HomePage() {
         if (isElementPresent(By.id("maintable"))) {
             return;

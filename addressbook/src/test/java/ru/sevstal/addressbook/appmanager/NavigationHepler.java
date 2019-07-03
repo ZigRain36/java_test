@@ -16,5 +16,4 @@ public class NavigationHepler extends HelperBase {
         }
         click(By.linkText("groups"));
     }
-
 }
