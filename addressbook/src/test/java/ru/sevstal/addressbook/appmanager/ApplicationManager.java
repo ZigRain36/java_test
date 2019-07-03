@@ -39,6 +39,7 @@ public class ApplicationManager {
                     InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
             wd = new InternetExplorerDriver(ieCapabilities);
         }
+
         wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         wd.get("http://localhost/addressbook/");
         groupHelper = new GroupHelper(wd);

@@ -23,5 +23,4 @@ public class AddContactTest extends TestBase {
                 before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
         assertThat(after.size(), equalTo(before.size() + 1));
     }
-
 }

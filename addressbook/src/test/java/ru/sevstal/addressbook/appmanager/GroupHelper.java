@@ -71,6 +71,7 @@ public class GroupHelper extends HelperBase {
         deleteSelectedGroups();
         returnToGroupPage();
     }
+
     public boolean isthereAGroup() {
         return isElementPresent(By.name("selected[]"));
     }

@@ -24,6 +24,7 @@ public class GroupData {
                 Objects.equals(name, groupData.name);
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(id, name);

@@ -32,7 +32,6 @@ public class HelperBase {
             return false;
         }
     }
-
     public void logout() {
         click(By.linkText("Logout"));
     }

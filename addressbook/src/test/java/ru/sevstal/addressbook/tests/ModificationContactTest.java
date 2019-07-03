@@ -24,6 +24,7 @@ public class ModificationContactTest extends TestBase {
     public void testModificationContact() {
         app.contact().HomePage();
         Contacts before = app.contact().all();
+//        app.contact().selectContact(before.size() - 1);
         ContactListData modifiedContact = before.iterator().next();
         ContactListData contact = new ContactListData()
                 .withId(modifiedContact.getId())
