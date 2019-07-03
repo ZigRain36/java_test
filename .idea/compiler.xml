@@ -2,8 +2,12 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
+      <module name="__.main" target="1.8" />
+      <module name="__.test" target="1.8" />
       <module name="java_test.main" target="1.8" />
       <module name="java_test.test" target="1.8" />
+      <module name="sandbox.main" target="1.8" />
+      <module name="sandbox.test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

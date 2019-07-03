@@ -8,7 +8,7 @@ public class NavigationHepler extends HelperBase {
     public NavigationHepler(WebDriver wd) {
         super(wd);
     }
-    public void gotoGroupPage() {
+    public void groupPage() {
         if (isElementPresent(By.tagName("h1"))
                 && wd.findElement(By.tagName("h1")).getText().equals("Groups")
                 && isElementPresent(By.name("new"))) {
@@ -16,4 +16,5 @@ public class NavigationHepler extends HelperBase {
         }
         click(By.linkText("groups"));
     }
+
 }

@@ -3,15 +3,13 @@ package ru.sevstal.addressbook.model;
 import java.util.Objects;
 
 public class ContactListData {
-    private int id;
-    private final String firstname;
-    private final String lastname;
-    private final String nickname;
+    private int id = Integer.MAX_VALUE;
+    private  String firstname;
+    private  String lastname;
+    private  String nickname;
 
-
-
-    public void setId(int id) {
-        this.id = id;
+    public int getId() {
+        return id;
     }
 
     @Override
@@ -19,17 +17,14 @@ public class ContactListData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContactListData that = (ContactListData) o;
-        return Objects.equals(firstname, that.firstname) &&
+        return id == that.id &&
+                Objects.equals(firstname, that.firstname) &&
                 Objects.equals(lastname, that.lastname);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstname, lastname);
-    }
-
-    public int getId() {
-        return id;
+        return Objects.hash(id, firstname, lastname);
     }
 
     @Override
@@ -41,23 +36,7 @@ public class ContactListData {
                 '}';
     }
 
-    public ContactListData(int id, String firstname, String lastname, String nickname) {
-        this.id = id;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.nickname = nickname;
 
-    }
-
-
-
-    public ContactListData(String firstname, String lastname, String nickname, boolean b) {
-        this.id = Integer.MAX_VALUE;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.nickname = nickname;
-
-    }
 
     public String getFirstname() {
         return firstname;
@@ -68,6 +47,26 @@ public class ContactListData {
     public String getNickname() {
         return nickname;
     }
+
+    public ContactListData withId(int id) {
+        this.id = id;
+        return this;
+    }
+
+    public ContactListData withFirstName(String firstname) {
+        this.firstname = firstname;
+        return this;
+    }
+
+    public ContactListData withLastname(String lastname) {
+        this.lastname = lastname;
+        return this;
+    }
+    public ContactListData withNickName(String nickname) {
+        this.nickname = nickname;
+        return this;
+    }
+
 
 
 }

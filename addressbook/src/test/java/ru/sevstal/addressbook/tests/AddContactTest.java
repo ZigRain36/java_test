@@ -1,29 +1,25 @@
 package ru.sevstal.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.sevstal.addressbook.model.ContactListData;
+import ru.sevstal.addressbook.model.Contacts;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-import java.util.Comparator;
-import java.util.List;
 
 public class AddContactTest extends TestBase {
+
     @Test
     public void testAddContact() throws Exception {
-        //int before = app.getGroupHelper().getGroupCount();
-        List<ContactListData> before = app.getContactHelper().getContactList();
-        app.getContactHelper().addNewContact();
-        ContactListData contact = new ContactListData("Artem", "Zorin", null, true);
-        app.getContactHelper().contactFormFill(contact, true);
-        app.getContactHelper().gotoHomePage();
-        List<ContactListData> after = app.getContactHelper().getContactList();
-        Assert.assertEquals(after.size(), before.size() + 1);
-
-        before.add(contact);
-        Comparator<? super ContactListData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
-        before.sort(byId);
-        after.sort(byId);
-        Assert.assertEquals(before, after);
-
+        app.contact().HomePage();
+        Contacts before = app.contact().all();
+        app.contact().addNewContact();
+        ContactListData contact = new ContactListData().withFirstName("Artem").withLastname("Zorin");
+        app.contact().create(contact);
+        app.contact().HomePage();
+        Contacts after = app.contact().all();
+        assertThat(after, equalTo(
+                before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+        assertThat(after.size(), equalTo(before.size() + 1));
     }
 }
