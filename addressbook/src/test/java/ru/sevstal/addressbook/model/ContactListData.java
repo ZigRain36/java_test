@@ -4,9 +4,9 @@ import java.util.Objects;
 
 public class ContactListData {
     private int id = Integer.MAX_VALUE;
-    private  String firstname;
-    private  String lastname;
-    private  String nickname;
+    private String firstname;
+    private String lastname;
+    private String nickname;
 
     public int getId() {
         return id;
@@ -37,13 +37,14 @@ public class ContactListData {
     }
 
 
-
     public String getFirstname() {
         return firstname;
     }
+
     public String getLastname() {
         return lastname;
     }
+
     public String getNickname() {
         return nickname;
     }
@@ -62,11 +63,11 @@ public class ContactListData {
         this.lastname = lastname;
         return this;
     }
+
     public ContactListData withNickName(String nickname) {
         this.nickname = nickname;
         return this;
     }
-
 
 
 }

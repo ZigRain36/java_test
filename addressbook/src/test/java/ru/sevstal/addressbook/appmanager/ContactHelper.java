@@ -35,13 +35,19 @@ public class ContactHelper extends HelperBase {
     }
 
 
-    public void selectContact(int index) {
-        wd.findElements(By.xpath("//input[contains(@type, 'checkbox')]")).get(index).click();
+    public void selectContactById(int id) {
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
-    public void delete() {
+
+    public void deletedSelectedContacts() {
         click(By.xpath("//input[@value='Delete']"));
     }
 
+    public void delete(ContactListData contact) {
+        selectContactById(contact.getId());
+        deletedSelectedContacts();
+        wd.switchTo().alert().accept();
+    }
 
     public void HomePage() {
         if (isElementPresent(By.id("maintable"))) {
@@ -56,7 +62,7 @@ public class ContactHelper extends HelperBase {
 
     public Contacts all() {
         Contacts contacts = new Contacts();
-        List<WebElement> elements = wd.findElements(By.name("entry"));
+        List<WebElement> elements = wd.findElements(By.cssSelector("tr[name = 'entry']"));
         for (WebElement element : elements) {
             String name = element.findElement(By.xpath(".//td[3]")).getText();
             String lastname = element.findElement(By.xpath(".//td[2]")).getText();

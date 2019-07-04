@@ -20,14 +20,13 @@ public class DeleteContactTest extends TestBase {
         }
     }
 
-    @Test (enabled = false)
+    @Test
     public void testContactDelete() {
         app.contact().HomePage();
         Contacts before = app.contact().all();
         ContactListData deletedContacts = before.iterator().next();
-        app.contact().selectContact(before.size() - 1);
-        app.contact().delete();
-        app.wd.switchTo().alert().accept();
+        app.contact().delete(deletedContacts);
+        app.contact().HomePage();
         Contacts after = app.contact().all();
         assertEquals(after.size(), before.size() - 1);
         assertThat(after, equalTo(before.withOut(deletedContacts)));

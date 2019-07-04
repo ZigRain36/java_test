@@ -20,18 +20,16 @@ public class ModificationContactTest extends TestBase {
         }
     }
 
-    @Test (enabled = false)
+    @Test
     public void testModificationContact() {
         app.contact().HomePage();
         Contacts before = app.contact().all();
-//        app.contact().selectContact(before.size() - 1);
         ContactListData modifiedContact = before.iterator().next();
         ContactListData contact = new ContactListData()
                 .withId(modifiedContact.getId())
                 .withFirstName("Artem")
                 .withLastname("Zorin")
                 .withNickName("Zigrain36");
-        app.contact().selectContact(contact.getId());
         app.contact().editContact(contact.getId());
         Contacts after = app.contact().all();
         assertEquals(after.size(), before.size());
