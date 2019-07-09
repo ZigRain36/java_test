@@ -1,15 +1,22 @@
 package ru.sevstal.addressbook.model;
 
+import com.google.gson.annotations.Expose;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import java.util.Objects;
 
+@XStreamAlias("group")
 public class GroupData {
 
+    @XStreamOmitField
     private  int id = Integer.MAX_VALUE;
+    @Expose
     private  String name;
+    @Expose
     private  String header;
+    @Expose
     private  String footer;
-
-
 
     public int getId() {
         return id;
@@ -33,9 +40,11 @@ public class GroupData {
     public String getName() {
         return name;
     }
+
     public String getHeader() {
         return header;
     }
+
     public String getFooter() {
         return footer;
     }
@@ -44,6 +53,7 @@ public class GroupData {
         this.id = id;
         return this;
     }
+
     public GroupData withName(String name) {
         this.name = name;
         return this;
@@ -58,6 +68,7 @@ public class GroupData {
         this.footer = footer;
         return this;
     }
+
     @Override
     public String toString() {
         return "GroupData{" +

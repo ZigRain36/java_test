@@ -1,22 +1,47 @@
 package ru.sevstal.addressbook.model;
 
+import com.google.gson.annotations.Expose;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
+import java.io.File;
 import java.util.Objects;
 
 public class ContactListData {
+    @XStreamOmitField
     private int id = Integer.MAX_VALUE;
+    @Expose
     private String firstname;
+    @Expose
     private String lastname;
+    @Expose
     private String nickname;
+    @Expose
     private String home;
+    @Expose
     private String mobile;
+    @Expose
     private String work;
     private String allPhones;
+    @Expose
     private String email1;
     private String email2;
     private String email3;
+    @Expose
     private String address;
     private String allEmails;
-    ;
+    private File photo;
+
+
+    public File getPhoto() {
+        return photo;
+    }
+
+    public ContactListData withPhoto(File photo) {
+        this.photo = photo;
+        return this;
+    }
+
+
 
     public String getAllPhones() {
         return allPhones;
