@@ -1,0 +1,5 @@
+<root>
+    <item name='org.hibernate.HibernateException'>
+        <annotation name='java.lang.Deprecated'/>
+    </item>
+</root>

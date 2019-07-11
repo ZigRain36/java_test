@@ -2,5 +2,6 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/addressbook/src/test/java/ru/sevstal/addressbook/generators/GroupDataGenerator.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/addressbook/src/test/java/ru/sevstal/addressbook/tests/DBConnectionTest.java" charset="windows-1251" />
   </component>
 </project>
