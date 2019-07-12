@@ -1,8 +1,6 @@
 plugins {
     id 'java'
 }
-
-
 group ';;'
 version '1.0-SNAPSHOT'
 
@@ -11,16 +9,12 @@ sourceCompatibility = 1.8
 dependencies {
     testCompile group: 'org.testng', name: 'testng', version: '6.14.3'
     compile fileTree(dir: 'lib', include: ['*.jar'])
-
 }
 repositories {
     flatDir {
         dirs 'lib'
     }
-
 }
-
-
 task testGroups (type: Test) {
     useTestNG() {
         suites 'src/resources/testng-groups.xml'

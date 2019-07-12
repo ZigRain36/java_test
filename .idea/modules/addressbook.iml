@@ -4,8 +4,8 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../addressbook">
       <sourceFolder url="file://$MODULE_DIR$/../../addressbook/src/test/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../../addressbook/src/test/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../../addressbook/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../../addressbook/src/test/resources" type="java-test-resource" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
