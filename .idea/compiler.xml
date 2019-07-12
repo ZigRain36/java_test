@@ -4,6 +4,8 @@
     <bytecodeTargetLevel>
       <module name="__.main" target="1.8" />
       <module name="__.test" target="1.8" />
+      <module name="adressbook.main" target="1.8" />
+      <module name="adressbook.test" target="1.8" />
       <module name="java_test.main" target="1.8" />
       <module name="java_test.test" target="1.8" />
       <module name="sandbox.main" target="1.8" />

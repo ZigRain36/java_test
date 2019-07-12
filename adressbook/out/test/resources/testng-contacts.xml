@@ -1,0 +1,9 @@
+<suite name="Suite1" verbose="1">
+    <test name="Contacts">
+        <classes>
+            <class name="ru.sevstal.addressbook.tests.AddContactTest"/>
+            <class name="ru.sevstal.addressbook.tests.ModificationContactTest"/>
+            <class name="ru.sevstal.addressbook.tests.DeleteContactTest"/>
+        </classes>
+    </test>
+</suite>
