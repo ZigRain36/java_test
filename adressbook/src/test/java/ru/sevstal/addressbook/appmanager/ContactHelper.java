@@ -23,7 +23,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("work"), contactListData.getWorkPhone());
         type(By.name("email"), contactListData.getEmail1());
         type(By.name("address"), contactListData.getAddress());
-        attach(By.name("photo"), contactListData.getPhoto());
+//        attach(By.name("photo"), contactListData.getPhoto());
         click(By.xpath("//input[contains(@type, 'submit')]"));
     }
 
@@ -71,6 +71,9 @@ public class ContactHelper extends HelperBase {
 
     public boolean isThereAContact() {
         return isElementPresent(By.name("selected[]"));
+    }
+    public int count() {
+        return wd.findElements(By.name("selected[]")).size();
     }
 
     public Contacts all() {

@@ -1,52 +1,51 @@
-package ru.sevstal.addressbook.tests;
-
+package ru.sevstal.addressbook.appmanager;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 import ru.sevstal.addressbook.model.ContactListData;
+import ru.sevstal.addressbook.model.Contacts;
 import ru.sevstal.addressbook.model.GroupData;
+import ru.sevstal.addressbook.model.Groups;
 
 import java.util.List;
 
-public class HBConnectionTest {
+public class DBHelper {
 
+    private final SessionFactory sessionFactory;
 
-    private SessionFactory sessionFactory;
+    public DBHelper() {
 
-    @BeforeClass
-    protected void setUp() throws Exception {
 
         // A SessionFactory is set up once for an application!
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure() // configures settings from hibernate.cfg.xml
                 .build();
-        try {
             sessionFactory = new MetadataSources(registry)
                     .buildMetadata()
                     .buildSessionFactory();
-        } catch (Exception e) {
-            // The registry would be destroyed by the SessionFactory, but we had trouble building the SessionFactory
-            // so destroy it manually.
-            e.printStackTrace();
-            StandardServiceRegistryBuilder.destroy(registry);
-        }
     }
 
-    @Test
-    public void hbConnectionTest() {
+    public Groups groups() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List result = session.createQuery("from ru.sevstal.addressbook.model.GroupData")
+                .list();
+        session.getTransaction().commit();
+        session.close();
+        return new Groups(result);
+    }
+
+    public Contacts contacts() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         List result = session.createQuery("from ru.sevstal.addressbook.model.ContactListData where deprecated = '0000-00-00'")
                 .list();
-        for (ContactListData contact : (List<ContactListData>) result) {
-            System.out.println(contact);
-        }
         session.getTransaction().commit();
         session.close();
+        return new Contacts(result);
     }
+
 }

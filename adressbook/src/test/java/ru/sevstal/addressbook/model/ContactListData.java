@@ -2,42 +2,98 @@ package ru.sevstal.addressbook.model;
 
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
+
+@Entity
+@Table(name = "addressbook")
 public class ContactListData {
     @XStreamOmitField
+    @Id
+    @Column(name = "id")
     private int id = Integer.MAX_VALUE;
+
     @Expose
+    @Column(name = "firstname")
     private String firstname;
+
     @Expose
+    @Column(name = "lastname")
     private String lastname;
+
     @Expose
+    @Transient
     private String nickname;
+
     @Expose
+    @Column(name = "home")
+    @Type(type = "text")
     private String home;
+
     @Expose
+    @Column(name = "mobile")
+    @Type(type = "text")
     private String mobile;
+
     @Expose
+    @Column(name = "work")
+    @Type(type = "text")
     private String work;
+
+    @Transient
     private String allPhones;
+
     @Expose
+    @Column(name = "email")
+    @Type(type = "text")
     private String email1;
+
+    @Column(name = "email2")
+    @Type(type = "text")
     private String email2;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContactListData that = (ContactListData) o;
+        return id == that.id &&
+                Objects.equals(firstname, that.firstname) &&
+                Objects.equals(lastname, that.lastname);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstname, lastname);
+    }
+
+    @Column(name = "email3")
+    @Type(type = "text")
     private String email3;
+
     @Expose
+    @Column(name = "address")
+    @Type(type = "text")
     private String address;
+
+    @Transient
     private String allEmails;
-    private File photo;
+
+    @Column(name = "photo")
+    @Transient
+    private String photo;
 
 
     public File getPhoto() {
-        return photo;
+        return new File (photo) ;
     }
 
     public ContactListData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
 
@@ -63,21 +119,6 @@ public class ContactListData {
 
     public int getId() {
         return id;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ContactListData that = (ContactListData) o;
-        return id == that.id &&
-                Objects.equals(firstname, that.firstname) &&
-                Objects.equals(lastname, that.lastname);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstname, lastname);
     }
 
     @Override
