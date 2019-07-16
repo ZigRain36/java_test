@@ -5,11 +5,10 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @XStreamAlias("group")
 @Entity
@@ -21,9 +20,6 @@ public class GroupData {
     @Column(name = "group_id")
     private int id = Integer.MAX_VALUE;
 
-    @Expose
-    @Column(name = "group_name")
-    private String name;
 
     @Override
     public boolean equals(Object o) {
@@ -31,14 +27,14 @@ public class GroupData {
         if (o == null || getClass() != o.getClass()) return false;
         GroupData groupData = (GroupData) o;
         return id == groupData.id &&
-                Objects.equals(name, groupData.name) &&
+                Objects.equals(groupName, groupData.groupName) &&
                 Objects.equals(header, groupData.header) &&
                 Objects.equals(footer, groupData.footer);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, header, footer);
+        return Objects.hash(id, groupName, header, footer);
     }
 
     @Expose
@@ -51,13 +47,31 @@ public class GroupData {
     @Type(type = "text")
     private String footer;
 
-    public int getId() {
-        return id;
+    public String getGroupName() {
+        return groupName;
     }
 
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
 
-    public String getName() {
-        return name;
+    @Expose
+    @Column(name = "group_name")
+    public String groupName;
+
+    public Contacts getContacts() {
+        return new Contacts (contacts);
+    }
+
+    public void setContacts(Set<ContactListData> contacts) {
+        this.contacts = contacts;
+    }
+
+    @ManyToMany(mappedBy = "groups", fetch = FetchType.EAGER)
+    private Set<ContactListData> contacts = new HashSet<ContactListData>();
+
+    public int getId() {
+        return id;
     }
 
     public String getHeader() {
@@ -74,7 +88,7 @@ public class GroupData {
     }
 
     public GroupData withName(String name) {
-        this.name = name;
+        this.groupName = name;
         return this;
     }
 
@@ -92,7 +106,7 @@ public class GroupData {
     public String toString() {
         return "GroupData{" +
                 "id='" + id + '\'' +
-                ", name='" + name + '\'' +
+                ", name='" + groupName + '\'' +
                 '}';
     }
 

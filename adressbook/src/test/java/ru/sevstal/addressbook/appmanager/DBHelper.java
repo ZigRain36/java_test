@@ -47,5 +47,15 @@ public class DBHelper {
         session.close();
         return new Contacts(result);
     }
+    public void groupsNextQuery(GroupData groups) {
+        Session session = sessionFactory.openSession();
+        session.refresh(groups);
+        session.close();
+    }
 
+    public void personNextQuery(ContactListData contacts) {
+        Session session = sessionFactory.openSession();
+        session.refresh(contacts);
+        session.close();
+    }
 }

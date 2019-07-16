@@ -2,11 +2,14 @@ package ru.sevstal.addressbook.model;
 
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Entity
@@ -55,6 +58,33 @@ public class ContactListData {
     @Column(name = "email2")
     @Type(type = "text")
     private String email2;
+
+    public Groups getGroups() {
+        return new Groups(groups);
+    }
+
+    public void setGroups(Set<GroupData> groups) {
+        this.groups = groups;
+    }
+
+    @Override
+    public String toString() {
+        return "ContactListData{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", home='" + home + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", work='" + work + '\'' +
+                ", groups=" + groups +
+                '}';
+    }
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups",
+            joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private  Set<GroupData> groups = new HashSet<GroupData>();
 
     @Override
     public boolean equals(Object o) {
@@ -119,15 +149,6 @@ public class ContactListData {
 
     public int getId() {
         return id;
-    }
-
-    @Override
-    public String toString() {
-        return "ContactListData{" +
-                "id=" + id +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                '}';
     }
 
 
@@ -222,6 +243,14 @@ public class ContactListData {
 
     public ContactListData withEmail3(String email3) {
         this.email3 = email3;
+        return this;
+    }
+    public ContactListData inGroup(GroupData group) {
+        groups.add(group);
+        return this;
+    }
+    public ContactListData delGroup() {
+        groups.remove(getGroups().iterator().next());
         return this;
     }
 

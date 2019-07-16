@@ -45,7 +45,7 @@ public class AddContactTest extends TestBase {
         Contacts before = app.db().contacts();
         app.contact().addNewContact();
 //        File photo = new File("src/test/resources/stru.png");
-        app.contact().create(contact);
+        app.contact().create(contact.inGroup(app.db().groups().iterator().next()), true);
         app.goTo().homePage();
         Contacts after = app.db().contacts();
         assertThat(after, equalTo(

@@ -7,7 +7,6 @@ import ru.sevstal.addressbook.model.Contacts;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.testng.Assert.assertEquals;
 
 public class DeleteContactTest extends TestBase {
 
@@ -16,7 +15,7 @@ public class DeleteContactTest extends TestBase {
         if (!app.contact().isThereAContact()) {
             app.contact().createContact(new ContactListData()
                     .withFirstName("Artem")
-                    .withLastname("Zorin"));
+                    .withLastname("Zorin"), true);
         }
     }
 

@@ -43,10 +43,12 @@ public class HBConnectionTest {
         session.beginTransaction();
         List result = session.createQuery("from ru.sevstal.addressbook.model.ContactListData where deprecated = '0000-00-00'")
                 .list();
-        for (ContactListData contact : (List<ContactListData>) result) {
-            System.out.println(contact);
-        }
         session.getTransaction().commit();
         session.close();
+        for (ContactListData contact : (List<ContactListData>) result) {
+            System.out.println(contact);
+            System.out.println(contact.getGroups());
+        }
     }
+
 }

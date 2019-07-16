@@ -17,7 +17,7 @@ public class ModificationContactTest extends TestBase {
             app.goTo().homePage();
             app.contact().createContact(new ContactListData()
                     .withFirstName("Artem")
-                    .withLastname("Zorin"));
+                    .withLastname("Zorin"), true);
         }
     }
 
