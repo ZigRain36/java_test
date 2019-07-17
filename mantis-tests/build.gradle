@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+}
+group ';;'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+//dependencies {
+//    testCompile group: 'org.testng', name: 'testng', version: '6.14.3'
+//    compile fileTree(dir: 'lib', include: ['*.jar'])
+//}
+//repositories {
+//    flatDir {
+//        dirs 'lib'
+//    }
+//}
+test {
+    useTestNG() {
+        suites 'src/resources/testng.xml'
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser', "${browser}"
+    }
+    if (project.hasProperty('target')) {
+        systemProperty 'target', "${target}"
+    }
+    if (project.hasProperty('verifyUI')) {
+        systemProperty 'verifyUI', "${verifyUI}"
+    }
+}
+
