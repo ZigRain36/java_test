@@ -6,15 +6,26 @@ version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
-//dependencies {
-//    testCompile group: 'org.testng', name: 'testng', version: '6.14.3'
-//    compile fileTree(dir: 'lib', include: ['*.jar'])
-//}
-//repositories {
-//    flatDir {
-//        dirs 'lib'
-//    }
-//}
+dependencies {
+    testCompile group: 'org.testng', name: 'testng', version: '6.14.3'
+    compile fileTree(dir: 'lib', include: ['*.jar'])
+    implementation 'org.testng:testng:6.14.3'
+    implementation 'org.webjars.bower:simple-hotkeys:1.0.3'
+    implementation 'org.seleniumhq.selenium:selenium-java:3.141.59'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
+    implementation 'org.hamcrest:java-hamcrest:2.0.0.0'
+    implementation 'com.beust:jcommander:1.72'
+    implementation 'com.thoughtworks.xstream:xstream:1.4.11.1'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'mysql:mysql-connector-java:8.0.16'
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
+    implementation 'org.hibernate:hibernate-core:5.4.3.Final'
+}
+repositories {
+    flatDir {
+        dirs 'lib'
+    }
+}
 task testGroups (type: Test) {
     useTestNG() {
         suites 'src/resources/testng-groups.xml'
