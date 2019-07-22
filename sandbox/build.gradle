@@ -1,20 +1,14 @@
-plugins {
-    id 'java'
-}
-
-group 'sandbox'
-version '1.0-SNAPSHOT'
-
-sourceCompatibility = 1.8
-
-dependencies {
+apply plugin: 'java'
+apply plugin: 'application'
+mainClassName = "MyFirstProgram"
+//repositories {
+//    mavenCentral()
+//}
+dependencies{
     testCompile group: 'org.testng', name: 'testng', version: '6.14.3'
     compile fileTree(dir: 'lib', include: ['*.jar'])
-
 }
-repositories {
-    flatDir {
-        dirs 'lib'
-    }
 
+test {
+useTestNG()
 }

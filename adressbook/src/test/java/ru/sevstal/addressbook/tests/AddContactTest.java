@@ -36,7 +36,6 @@ public class AddContactTest extends TestBase {
         List<ContactListData> contacts = gson.fromJson(json, new TypeToken<List<ContactListData>>() {
         }.getType());
         return contacts.stream().map((g -> new Object[]{g})).collect(Collectors.toList()).iterator();
-
     }
 
     @Test(dataProvider = "validContactsFromJson")
@@ -45,7 +44,7 @@ public class AddContactTest extends TestBase {
         Contacts before = app.db().contacts();
         app.contact().addNewContact();
 //        File photo = new File("src/test/resources/stru.png");
-        app.contact().create(contact.inGroup(app.db().groups().iterator().next()), true);
+        app.contact().create(contact.inGroup(app.db().groups().iterator().next()));
         app.goTo().homePage();
         Contacts after = app.db().contacts();
         assertThat(after, equalTo(

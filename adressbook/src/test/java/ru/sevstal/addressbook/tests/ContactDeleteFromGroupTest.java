@@ -8,8 +8,7 @@ import ru.sevstal.addressbook.model.GroupData;
 import ru.sevstal.addressbook.model.Groups;
 
 import java.io.File;
-
-import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactDeleteFromGroupTest extends TestBase {
@@ -21,47 +20,37 @@ public class ContactDeleteFromGroupTest extends TestBase {
     public void preconditions() {
         if (app.db().contacts().size() == 0) {
             app.goTo().homePage();
-            File photo = new File("src/test/resources/tovChe.jpg");
             app.contact().create(new ContactListData()
-                    .withFirstName("Artem")
-                    .withLastname("Zorin"), true);
+                    .withFirstName("A/")
+                    .withLastname("Korsakova")
+                    .withAddress("Minsk")
+                    .withHomePhone("1111111111")
+                    .withMobilePhone("22222222222")
+                    .withWorkPhone("33333333333")
+                    .withEmail1("email@email.com"));
         }
         if (app.db().groups().size() == 0) {
             app.goTo().groupPage();
-            app.group().create(new GroupData()
-                    .withName("group name")
-                    .withHeader("header")
-                    .withFooter("footer"));
+            app.group().create(new GroupData().withName("test1").withHeader("test2").withFooter("test3"));
         }
-        ContactListData contact = app.db().contacts().iterator().next();
-        if (contact.getGroups().size() == 0) {
-            app.goTo().homePage();
-            app.contact().addToGroup(contact.inGroup(app.db().groups().iterator().next()));
+        if (app.db().contacts().iterator().next().getGroups().size() == app.db().groups().size()) {
+            app.goTo().groupPage();
+            app.group().create(new GroupData().withName("test1").withHeader("test2").withFooter("test3"));
         }
     }
 
     @Test
-    public void testPersonDeleteGroup() {
-        contacts = app.db().contacts();
-        groups = app.db().groups();
-        ContactListData contactDel = contacts.iterator().next();
-        GroupData groupDel = groups.iterator().next();
-
+    public void testRemovingContactFromGroup() {
         app.goTo().homePage();
-
-        app.contact().contactGroupPage(contactDel);
-        app.contact().delFromGroup(contactDel);
-
-        app.db().personNextQuery(contactDel);
-        app.db().groupsNextQuery(groupDel);
-
-        assertThat(contactDel.getGroups(), not(groupDel));
-        assertThat(groupDel.getContacts(), not(contactDel));
-
-
-
-
-
-
+        Contacts contactsBefore = app.db().contacts();
+        Groups groupList = app.db().groups();
+        ContactListData selectedContact = contactsBefore.iterator().next();
+        GroupData fromGroup = groupList.iterator().next();
+        app.contact().delFromGroup(selectedContact, fromGroup);
+        Contacts contactsAfter = app.db().contacts();
+        assertThat(contactsAfter.iterator().next().getGroups(), equalTo(contactsBefore.iterator().next().getGroups().withOut(fromGroup)));
+        app.goTo().homePage();
+        verifyContactListInUi();
     }
+
 }

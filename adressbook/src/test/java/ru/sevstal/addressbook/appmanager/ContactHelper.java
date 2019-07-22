@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import ru.sevstal.addressbook.model.ContactListData;
 import ru.sevstal.addressbook.model.Contacts;
+import ru.sevstal.addressbook.model.GroupData;
 
 import java.util.List;
 
@@ -42,9 +43,9 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//input[contains(@type, 'submit')]"));
     }
 
-    public void create(ContactListData contact,boolean creation) {
+    public void create(ContactListData contact) {
         addNewContact();
-        createContact(contact, creation);
+        createContact(contact,true);
         returnToHomePage();
     }
 
@@ -76,6 +77,17 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
+    public void selectGroupListById(int id) {
+        click(By.cssSelector("select[name=\"group\"] > option[value='" + id + "']"));
+    }
+    private void selectGroupById(int id) {
+
+        click(By.cssSelector("select[name=\"to_group\"] > option[value='" + id + "']"));
+    }
+
+    private void confirmContactToGroupAdding() {
+        click(By.xpath("//input[@name='add']"));
+    }
     public void deletedSelectedContacts() {
         click(By.xpath("//input[@value='Delete']"));
     }
@@ -140,34 +152,17 @@ public class ContactHelper extends HelperBase {
 //        wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
     }
 
-    public void approvedAddGroup(ContactListData contactAdd) {
-        wd.findElement(By.tagName("h1")).getText().equals("Groups");
-        Assert.assertTrue(isElementPresent(By.linkText("group page \""
-                + contactAdd.getGroups().iterator().next().getGroupName() +"\"")));
-
+    public void addToGroup(ContactListData contactAdd, GroupData group) {
+        selectContactById(contactAdd.getId());
+        selectGroupById(group.getId());
+        confirmContactToGroupAdding();
+        returnToHomePage();
     }
 
-    public void approvedDelGroup(ContactListData deletedContact) {
-        wd.findElement(By.tagName("h1")).getText().equals("Groups");
-        Assert.assertTrue(isElementPresent(By.linkText("group page \""
-                + deletedContact.getGroups().iterator().next().getGroupName() +"\"")));
-    }
-
-
-    public void addToGroup(ContactListData contactAdd) {
-        Assert.assertEquals(contactAdd.getGroups().size(), 1);
-        Select groupSelector = new Select(wd.findElement(By.name("to_group")));
-        groupSelector.selectByVisibleText(contactAdd.getGroups().iterator().next().getGroupName());
-        select(contactAdd);
-        click(By.name("add"));
-        approvedAddGroup(contactAdd);
-    }
-
-    public void delFromGroup(ContactListData contactDelete) {
-        Assert.assertEquals(contactDelete.getGroups().size(), 1);
+    public void delFromGroup(ContactListData contactDelete, GroupData group) {
+        selectGroupListById(group.getId());
         selectContactById(contactDelete.getId());
         click(By.name("remove"));
-        approvedDelGroup(contactDelete);
     }
 
     public void contactGroupPage(ContactListData contactDel) {
@@ -175,5 +170,8 @@ public class ContactHelper extends HelperBase {
         Select select = new Select(wd.findElement(By.name("group")));
         select.selectByVisibleText(contactDel.getGroups().iterator().next().getGroupName());
 
+    }
+    public void goBack() {
+        click(By.cssSelector("select[name=\"group\"] > option[value='']"));
     }
 }

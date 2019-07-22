@@ -87,8 +87,8 @@ public class GroupData {
         return this;
     }
 
-    public GroupData withName(String name) {
-        this.groupName = name;
+    public GroupData withName(String groupName) {
+        this.groupName = groupName;
         return this;
     }
 

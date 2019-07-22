@@ -6,6 +6,8 @@ import org.openqa.selenium.remote.BrowserType;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import ru.sevstal.addressbook.appmanager.ApplicationManager;
+import ru.sevstal.addressbook.model.ContactListData;
+import ru.sevstal.addressbook.model.Contacts;
 import ru.sevstal.addressbook.model.GroupData;
 import ru.sevstal.addressbook.model.Groups;
 
@@ -48,6 +50,21 @@ public class TestBase {
                     .map((g) -> new GroupData()
                             .withId(g.getId())
                             .withName(g.getGroupName()))
+                    .collect(Collectors.toSet())));
+        }
+    }
+    public void verifyContactListInUi() {
+        if (Boolean.getBoolean("verifyUi")) {
+            Contacts dbContacts = app.db().contacts();
+            Contacts uiContacts = app.contact().all();
+            MatcherAssert.assertThat(uiContacts, equalTo(dbContacts.stream()
+                    .map((c) -> new ContactListData()
+                            .withId(c.getId())
+                            .withFirstName(c.getFirstname())
+                            .withLastname(c.getLastname())
+                            .withAddress(c.getAddress())
+                            .withAllPhones(c.getAllPhones())
+                            .withAllEmails(c.getAllEmails()))
                     .collect(Collectors.toSet())));
         }
     }

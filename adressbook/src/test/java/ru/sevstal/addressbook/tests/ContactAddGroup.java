@@ -8,7 +8,6 @@ import ru.sevstal.addressbook.model.GroupData;
 import ru.sevstal.addressbook.model.Groups;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.MatcherAssert.*;
 
 public class ContactAddGroup extends TestBase {
@@ -28,19 +27,22 @@ public class ContactAddGroup extends TestBase {
             }
         }
 
-        @Test
-        public void testContactAddToGroup() {
-
-            Contacts contactBefore = app.db().contacts();
-            Groups groupsBefore = app.db().groups();
-            ContactListData contactAdd = contactBefore.iterator().next();
-            GroupData groupsToAdd = groupsBefore.iterator().next();
-            app.goTo().homePage();
-            app.contact().addToGroup(contactAdd.inGroup(groupsToAdd));
-            app.db().personNextQuery(contactAdd);
-            app.db().groupsNextQuery(groupsToAdd);
-            assertThat(contactAdd.getGroups(), hasItem(groupsToAdd));
-            assertThat(groupsToAdd.getContacts(), hasItem(contactAdd));
+    @Test
+    public void testAddingContactToGroup() {
+        app.goTo().homePage();
+        Contacts contactsBefore = app.db().contacts();
+        Groups groupList = app.db().groups();
+        ContactListData selectedContact = contactsBefore.iterator().next();
+        GroupData toGroup = groupList.iterator().next();
+        app.contact().addToGroup(selectedContact, toGroup);
+        Contacts contactsAfter = app.db().contacts();
+        assertThat(contactsAfter.iterator()
+                .next().getGroups(),
+                equalTo(contactsBefore
+                .iterator().next()
+                .getGroups()
+                .withAdded(toGroup)));
+        verifyContactListInUi();
 
 
         }
