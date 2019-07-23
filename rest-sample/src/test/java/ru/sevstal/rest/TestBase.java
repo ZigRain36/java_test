@@ -1,48 +1,46 @@
 package ru.sevstal.rest;
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
-import org.apache.http.client.fluent.Executor;
-import org.apache.http.client.fluent.Request;
+import com.jayway.restassured.RestAssured;
+import org.apache.commons.exec.Executor;
+import org.omg.CORBA.Request;
 import org.testng.SkipException;
+import org.testng.annotations.BeforeSuite;
 
 import java.io.IOException;
-import java.util.Set;
 
 public class TestBase {
 
+    public boolean isIssueOpen(int issueId) throws IOException {
+
+        String status = getIssueStatus(issueId);
+        return status.equals("Open");
+
+    }
+
     public void skipIfNotFixed(int issueId) throws IOException {
-        if (isIssueOpen(issueId)) {
+
+        if (!isIssueOpen(issueId)) {
+            System.out.println("Ignored because of issue " + issueId);
             throw new SkipException("Ignored because of issue " + issueId);
         }
     }
 
-    public boolean isIssueOpen(int issueId) throws IOException {
-        return !getIssueById(issueId).getState_name().equals("Resolved");
+    private Executor getExecutor() {
+        return Executor.newInstance().
+                auth("288f44776e7bec4bf44fdfeb1e646490", "");
     }
 
-    public Issue getIssueById(int id) throws IOException {
-        Issue issue = new Issue();
-        getIssues()
-                .stream().findFirst().map
-                ((i) -> issue.withId(i.getId()).withSubject(i.getSubject())
-                        .withDescription(i.getDescription())
-                        .withState_name(i.getState_name())
-                );
-        return issue;
-    }
+    private String getIssueStatus(int issueId) throws IOException {
+        String json = getExecutor().execute(Request.Get(String.format("http://demo.bugify.com/api/issues/%s.json", issueId))).
+                returnContent().asString();
 
-    public Set<Issue> getIssues() throws IOException {
-        String json = getExecutor().execute(Request.Get("http://bugify.stqa.ru/api/issues.json"))
-                .returnContent().asString();
         JsonElement parsed = new JsonParser().parse(json);
         JsonElement issues = parsed.getAsJsonObject().get("issues");
-        return new Gson().fromJson(issues, new TypeToken<Set<Issue>>() {
-        }.getType());
-    }
+        JsonElement issue = issues.getAsJsonArray().get(0);
+        String s =issue.getAsJsonObject().get("state_name").getAsString();
+        System.out.println("   " + s);
+        return s;
 
-    public Executor getExecutor() {
-        return Executor.newInstance().auth("288f44776e7bec4bf44fdfeb1e646490", "");
     }
 }
